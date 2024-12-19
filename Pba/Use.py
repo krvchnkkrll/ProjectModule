@@ -39,7 +39,7 @@ thefuzz_token_set_ratio = fuzz.token_set_ratio(str1, str2)
 levenshtein_distance = distance(str1, str2)
 levenshtein_ratio = ratio(str1, str2)
 str_lev1 = 'Мама мыла раму.'
-str_lev2 = 'Мама мылО  раму.'
+str_lev2 = 'Мама мылО раму.'
 if len(str_lev1) == len(str_lev2):
     hamming_distance = hamming(str_lev1, str_lev2)
 else:
