@@ -1,5 +1,6 @@
 import re
 import time
+import difflib
 from difflib import SequenceMatcher
 
 queries = [
@@ -36,6 +37,12 @@ for query in queries:
 for query in cleaned_queries:
     ratio = SequenceMatcher(None, query, answer).ratio()
     print(f"Для запроса: {query} и ответа: {answer}. \nКоэффициент сходства: {ratio}")
+
+close_matches = difflib.get_close_matches(answer, cleaned_queries)
+
+print(f"Для ответа: {answer} подобраны следующие по схожести запросы:")
+for query in close_matches:
+    print(f"- {query}\n")
 
 
 mil_words = get_mil_dictionary()
