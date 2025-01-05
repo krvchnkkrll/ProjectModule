@@ -6,7 +6,8 @@ from fuzzywuzzy import fuzz
 queries = [
     "Cколько часов челавеку нужно спать в утки чтобы нормально себя чуствовать и быть роботоспособным?",
     "Чтобы нормально себя чувствовать и быть работоспособным, cколько часов человеку нужно спать в сутки?",
-    "Сколько часов человеку нужно спать чтобы оставаться работоспособным?"
+    "Сколько часов человеку нужно спать чтобы оставаться работоспособным?",
+    "Человеку нужно питаться минимум 3-4 раза в сутки, чувствовать себя сильным."
 
 ]
 
@@ -36,17 +37,33 @@ print("Коэффициент сходства\n\n")
 
 for query in cleaned_queries:
     ratio = fuzz.ratio(query, answer)
-    print(f"Для запроса: {query} и ответа: {answer}. \nКоэффициент сходства: {ratio}")
+    print(f"Для запроса: {query} \nКоэффициент сходства: {ratio}")
+print("Коэффициент c учётом сортировки токенов\n\n")
+
+for query in cleaned_queries:
+    ratio = fuzz.partial_ratio(query, answer)
+    print(f"Для запроса: {query} \nКоэффициент сходства: {ratio}")
 print("Коэффициент c учётом сортировки токенов\n\n")
 
 for query in cleaned_queries:
     ratio = fuzz.token_sort_ratio(query, answer)
-    print(f"Для запроса: {query} и ответа: {answer}. \nКоэффициент c учётом сортировки токенов: {ratio}")
-print("C учётом пересечения множеств токенов\n\n")
+    print(f"Для запроса: {query}. \nКоэффициент c учётом сортировки токенов: {ratio}")
 
+print("C учётом пересечения множеств токенов\n\n")
 for query in cleaned_queries:
     ratio = fuzz.token_set_ratio(query, answer)
-    print(f"Для запроса: {query} и ответа: {answer}. \nC учётом пересечения множеств токенов: {ratio}")
+    print(f"Для запроса: {query}. \nC учётом пересечения множеств токенов: {ratio}")
+
+
+print("Partial Token Sort Ratio\n\n")
+for query in cleaned_queries:
+    ratio = fuzz.partial_token_sort_ratio(query, answer)
+    print(f"Для запроса: {query}. \nC учётом пересечения множеств токенов: {ratio}")
+
+print("Partial Token Set Ratio\n\n")
+for query in cleaned_queries:
+    ratio = fuzz.partial_token_set_ratio(query, answer)
+    print(f"Для запроса: {query}. \nC учётом пересечения множеств токенов: {ratio}")
 
 mil_words = get_mil_dictionary()
 

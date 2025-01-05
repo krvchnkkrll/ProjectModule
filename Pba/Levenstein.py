@@ -1,12 +1,13 @@
 import re
 import time
 
-from Levenshtein import distance, ratio, hamming
+from Levenshtein import distance
 
 queries = [
     "Cколько часов челавеку нужно спать в утки чтобы нормально себя чуствовать и быть роботоспособным?",
     "Чтобы нормально себя чувствовать и быть работоспособным, cколько часов человеку нужно спать в сутки?",
-    "Сколько часов человеку нужно спать чтобы оставаться работоспособным?"
+    "Сколько часов человеку нужно спать чтобы оставаться работоспособным?",
+    "Человеку нужно питаться минимум 3-4 раза в сутки, чувствовать себя сильным."
 
 ]
 
@@ -32,27 +33,24 @@ cleaned_answer = clean_sentence(answer)
 
 for query in queries:
     cleaned_queries.append(clean_sentence(query))
-print("Коэффициент сходства\n\n")
-for query in cleaned_queries:
-    ratio_lev = ratio(query, answer)
-    print(f"Для запроса: {query} и ответа: {answer}. \nКоэффициент сходства: {ratio_lev}")
 print("Коэффициент c учётом сортировки токенов\n\n")
 for query in cleaned_queries:
     dist = distance(query, answer)
     print(f"Для запроса: {query} и ответа: {answer}. \nРасстояние Левенштейна: {dist}")
 print("C учётом пересечения множеств токенов\n\n")
-for query in cleaned_queries:
-    hamm = hamming(query, answer)
-    print(f"Для запроса: {query} и ответа: {answer}. \nРасстояние Хэмминга: {hamm}")
+
 
 mil_words = get_mil_dictionary()
 
 time1 = time.time()
 
+counter = 0
 for word in mil_words:
-    ratio(answer, word)
+    distance(answer, word)
+    counter += 1
 
 time2 = time.time()
 
+print(counter)
 print(f"Время выполнения расчёта коэффициента сходства для всех слов словаря:{time2-time1}")
 
